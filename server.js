@@ -28,4 +28,4 @@ io.on('connection', socket =>{
     });
 });
 server.listen(process.env.PORT || 3000);
-console.log(process.env.PORT);
+console.log("https://localhost:"+process.env.PORT);
