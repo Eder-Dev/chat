@@ -25,7 +25,7 @@
 		</form>
 	</div>
     <script>
-        var socket = io('http://chatifap.herokuapp.com/');
+        var socket = io('http://chatifap.herokuapp.com:32257/');
 
         socket.on('previewMessage' , function(msg) {
             msg.forEach(element => {
