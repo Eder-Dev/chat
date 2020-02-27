@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <script>
+        var query = location.search.slice(1);
+        var partes = query.split('&');
+        var par = partes[0].split('=');
+        
+        var nome = par[1];
+    </script>
+</head>
+<body>
+    <div class="chatbox">
+		<div class="chatlogs">
+		</div>
+		<form class="chat-form">
+			<textarea id="mymsg"></textarea>
+			<button type="submit">Enviar</button>
+		</form>
+	</div>
+    <script>
+        var socket = io('http://localhost:3000/');
+
+        socket.on('previewMessage' , function(msg) {
+            msg.forEach(element => {
+                renderMsg(element);
+            });
+        });
+
+        socket.on('chegadaMsg', function(msg) {
+            console.log('pegou' + msg.author);
+            renderMsg(msg);
+        });
+
+        function renderMsg(msg) {
+            if(msg.author == nome){
+                $('.chatlogs').append('<div class="chat self"><div class="chat-message"><p style="margin-bottom: 15px;"><strong>'+msg.author+'</strong></p><p>'+msg.mensagem+'</p></div></div>')
+            }else{
+                $('.chatlogs').append('<div class="chat friend"><div class="chat-message"><p style="margin-bottom: 15px;"><strong>'+msg.author+'</strong></p><p>'+msg.mensagem+'</p></div></div>')
+            }
+            
+        }
+        
+        $('.chat-form').submit(function (event) {
+            event.preventDefault();
+
+            
+            var mensagem = document.getElementById("mymsg").value
+            var msg1 = mensagem.replace(/(?:\r\n|\r|\n)/g, '<br>');
+            if (nome.length && msg1.length) {
+                var mensagemObject = {
+                    author: nome,
+                    mensagem: msg1,
+                }
+                renderMsg(mensagemObject);
+                socket.emit('sendMessage', mensagemObject);
+                document.getElementById("mymsg").value = ""
+            }
+        })
+    </script>
+</body>
+</html>
