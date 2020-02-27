@@ -25,7 +25,7 @@
 		</form>
 	</div>
     <script>
-        var socket = io('http://chatifap.herokuapp.com:'+process.env.PORT);
+        var socket = io(location.origin.replace(/^http/, 'ws'));
 
         socket.on('previewMessage' , function(msg) {
             msg.forEach(element => {
