@@ -5,14 +5,13 @@
 	box-sizing: border-box;
 }
 body{
-	background: #fff;
+	background: url("back.jpg");
 	height: 100vh;
 }
 .chatbox{
 	width: 100%;
 	min-width: 90%;
 	height: 100%;
-	background: #fff;
 	padding: 5px;
 }
 .chatlogs{
