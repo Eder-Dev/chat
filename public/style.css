@@ -44,10 +44,10 @@ body{
 	font-size: 12pt;
 }
 .friend .chat-message{
-	background: #876dee;
+	background: linear-gradient(-45deg,#39c9ea,#512DA8);
 }
 .self .chat-message{
-	background: #5c39ea;
+	background: linear-gradient(-45deg,#e439ea,#512DA8);
 	margin-left: auto;
 }
 .chat-form{
