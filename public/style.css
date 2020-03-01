@@ -5,8 +5,10 @@
 	box-sizing: border-box;
 }
 body{
-	background: url("back2.jpg");
+	background: url("back2.jpg") no-repeat;
 	height: 100vh;
+	background-size: cover;
+	background-position: center;
 }
 .chatbox{
 	width: 100%;
